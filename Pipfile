@@ -1,0 +1,28 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+requests = "*"
+numpy = "*"
+pandas = "*"
+notebook = "*"
+matplotlib = "*"
+seaborn = "*"
+flask = {extras = ["async"], version = "*"}
+requests-oauthlib = "*"
+jinja2 = "*"
+sqlalchemy = "==1.4.22"
+flask-sqlalchemy = "*"
+flask-migrate = "*"
+psycopg2 = "*"
+gunicorn = "*"
+python-dotenv = "*"
+spotipy = "*"
+scikit-learn = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.9"
