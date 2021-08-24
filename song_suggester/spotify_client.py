@@ -1,13 +1,13 @@
+import os
 import base64
 import requests
 import datetime
-from os import getenv
 from urllib.parse import urlencode
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
 
-SPOTIFY_API_KEY = getenv("SPOTIFY_API_KEY")
-SPOTIFY_API_KEY_SECRET = getenv("SPOTIFY_API_KEY_SECRET")
+SPOTIFY_API_KEY = os.getenv("SPOTIFY_API_KEY")
+SPOTIFY_API_KEY_SECRET = os.getenv("SPOTIFY_API_KEY_SECRET")
 
 class SpotifyAPI(object):
     access_token = None
@@ -121,3 +121,20 @@ class SpotifyAPI(object):
         print(query_params)
         return self.base_search(query_params)
 
+# instantiate spotify API object
+SPOTIFY_API = SpotifyAPI(SPOTIFY_API_KEY, SPOTIFY_API_KEY_SECRET)
+
+# instantiate spotiPy API object (wrapper for spotify API)
+auth_manager = SpotifyClientCredentials(SPOTIFY_API_KEY, SPOTIFY_API_KEY_SECRET)
+SPOTIPY_API = spotipy.Spotify(auth_manager=auth_manager)
+
+def retrieve_spotify_id(song_name, artist_name):
+    song = SPOTIFY_API.search(
+        {'track':song_name, 'artist':artist_name}, search_type='track')
+    spotify_id = song['tracks']['items'][0]['id']
+    return spotify_id
+
+def retrieve_audio_features(spotify_id):
+    # spotiPy API -- from track's (Spotify ID) to its (audio_features):
+    audio_features = SPOTIPY_API.audio_features(tracks=[spotify_id])
+    return audio_features
