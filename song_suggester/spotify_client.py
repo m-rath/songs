@@ -168,7 +168,7 @@ def retrieve_audio_features(spotify_id):
 def retrieve_genres(artist_name):
     """Example: retrieve_genre('stevie wonder')
     returns ['funk', 'indie r&b', 'motown', 'quiet storm', 'soul']"""
-    artist = SPOTIFY_API.search({'artist':artist}, search_type='artist')
+    artist = SPOTIFY_API.search({'artist':artist_name}, search_type='artist')
     genre_list = artist['artists']['items'][0]['genres']
     return genre_list
 
