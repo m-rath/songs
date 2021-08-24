@@ -1,8 +1,13 @@
 import base64
 import requests
 import datetime
+from os import getenv
 from urllib.parse import urlencode
+import spotipy
+from spotipy.oauth2 import SpotifyClientCredentials
 
+SPOTIFY_API_KEY = getenv("SPOTIFY_API_KEY")
+SPOTIFY_API_KEY_SECRET = getenv("SPOTIFY_API_KEY_SECRET")
 
 class SpotifyAPI(object):
     access_token = None
