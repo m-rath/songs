@@ -129,12 +129,35 @@ auth_manager = SpotifyClientCredentials(SPOTIFY_API_KEY, SPOTIFY_API_KEY_SECRET)
 SPOTIPY_API = spotipy.Spotify(auth_manager=auth_manager)
 
 def retrieve_spotify_id(song_name, artist_name):
+    """Example: retrieve_spotify_id('superstition','stevie wonder')
+    returns '4N0TP4Rmj6QQezWV88ARNJ'
+    """
     song = SPOTIFY_API.search(
         {'track':song_name, 'artist':artist_name}, search_type='track')
     spotify_id = song['tracks']['items'][0]['id']
     return spotify_id
 
+
 def retrieve_audio_features(spotify_id):
-    # spotiPy API -- from track's (Spotify ID) to its (audio_features):
+    """Example: retrieve_audio_features('4N0TP4Rmj6QQezWV88ARNJ')
+    returns a python dict
+    [{'danceability': 0.611,
+    'energy': 0.578,
+    'key': 1,
+    'loudness': -14.171,
+    'mode': 1,
+    'speechiness': 0.0676,
+    'acousticness': 0.0598,
+    'instrumentalness': 0.0219,
+    'liveness': 0.0983,
+    'valence': 0.884,
+    'tempo': 100.625,
+    'type': 'audio_features',
+    'id': '4N0TP4Rmj6QQezWV88ARNJ',
+    'uri': 'spotify:track:4N0TP4Rmj6QQezWV88ARNJ',
+    'track_href': 'https://api.spotify.com/v1/tracks/4N0TP4Rmj6QQezWV88ARNJ',
+    'analysis_url': 'https://api.spotify.com/v1/audio-analysis/4N0TP4Rmj6QQezWV88ARNJ',
+    'duration_ms': 266133,
+    'time_signature': 4}]"""    
     audio_features = SPOTIPY_API.audio_features(tracks=[spotify_id])
     return audio_features

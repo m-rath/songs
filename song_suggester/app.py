@@ -22,9 +22,23 @@ def create_app():
 
     # ROOT ROUTE
     @app.route('/', methods=["GET", "POST"])
-    def root():
-        # TODO -- a bunch
+    def root():     
+        # ...
+
+        # When visitor types song and artist then hits a button...
+        if request.method == "POST":
+            song_name = request.form["song_name"]
+            artist_name = request.form["artist_name"]
+            spotify_id = retrieve_spotify_id('superstition','stevie wonder')
+            audio_features = retrieve_audio_features(spotify_id)
+
+
         return render_template(
-            'base.html', title = 'home', songs = Song.query.all())
+            'base.html', title = 'home', songs = Song.query.limit(10).all())
+
+
+
+    #...
+
 
     return app
