@@ -135,6 +135,9 @@ def retrieve_spotify_id(song_name, artist_name):
     song = SPOTIFY_API.search(
         {'track':song_name, 'artist':artist_name}, search_type='track')
     spotify_id = song['tracks']['items'][0]['id']
+    
+    # ... get genre, too
+    
     return spotify_id
 
 
@@ -161,3 +164,26 @@ def retrieve_audio_features(spotify_id):
     'time_signature': 4}]"""    
     audio_features = SPOTIPY_API.audio_features(tracks=[spotify_id])
     return audio_features
+
+def retrieve_genres(artist_name):
+    """Example: retrieve_genre('stevie wonder')
+    returns ['funk', 'indie r&b', 'motown', 'quiet storm', 'soul']"""
+    artist = SPOTIFY_API.search({'artist':artist}, search_type='artist')
+    genre_list = artist['artists']['items'][0]['genres']
+    return genre_list
+
+def spotipy_recs(spotify_id, limit=20):
+    """Example: spotipy_recs('4N0TP4Rmj6QQezWV88ARNJ', limit=3)
+    returns
+    [['6gJdDnF2TzfA1WPMXuCa3x', 'Proud Mary', 'Tina Turner'],
+    ['2DYtBXueUkZyUZAHKJAAIs', 'We Are Family - 2006 Remaster', 'Sister Sledge'],
+    ['00pGV4EInVd77cnOIwPTCv', "Papa's Got A Brand New Bag", 'James Brown']]
+    """
+    recs = SPOTIPY_API.recommendations(seed_tracks=[spotify_id], limit=limit)
+    rec_list = []
+    for i in range(len(recs['tracks'])):
+        song_id = recs['tracks'][i]['id']
+        song_name = recs['tracks'][i]['name']
+        artist_name = recs['tracks'][i]['artists'][0]['name']
+        rec_list.append([song_id,song_name,artist_name])
+    return rec_list

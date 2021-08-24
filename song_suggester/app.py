@@ -31,7 +31,10 @@ def create_app():
             artist_name = request.form["artist_name"]
             spotify_id = retrieve_spotify_id('superstition','stevie wonder')
             audio_features = retrieve_audio_features(spotify_id)
+            genre_list = retrieve_genres(artist_name)
+            recommend_list = spotipy_recs(spotify_id, limit=3) # nested list
 
+        # ...
 
         return render_template(
             'base.html', title = 'home', songs = Song.query.limit(10).all())

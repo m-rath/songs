@@ -1,3 +1,3 @@
 FLASK_ENV = "development"
 FLASK_APP = "song_suggester.app"
-DATABASE_URI = "postgresql+psycopg2:////mydatabase"
+DATABASE_URI = "postgresql+psycopg2:////spotify_db"
