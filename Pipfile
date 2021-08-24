@@ -21,6 +21,7 @@ gunicorn = "*"
 python-dotenv = "*"
 spotipy = "*"
 scikit-learn = "*"
+nbconvert = "*"
 
 [dev-packages]
 

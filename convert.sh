@@ -1,0 +1,1 @@
+jupyter nbconvert --output-dir='./client' --to python Notebooks/spotify_client.ipynb 
