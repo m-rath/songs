@@ -128,17 +128,17 @@ SPOTIFY_API = SpotifyAPI(SPOTIFY_API_KEY, SPOTIFY_API_KEY_SECRET)
 auth_manager = SpotifyClientCredentials(SPOTIFY_API_KEY, SPOTIFY_API_KEY_SECRET)
 SPOTIPY_API = spotipy.Spotify(auth_manager=auth_manager)
 
-def retrieve_spotify_id(song_name, artist_name):
+
+def retrieve_spotify_ids(song_name, artist_name):
     """Example: retrieve_spotify_id('superstition','stevie wonder')
     returns '4N0TP4Rmj6QQezWV88ARNJ'
     """
     song = SPOTIFY_API.search(
         {'track':song_name, 'artist':artist_name}, search_type='track')
-    spotify_id = song['tracks']['items'][0]['id']
+    song_id = song['tracks']['items'][0]['id']
+    artist_id = song['tracks']['items'][0]['album']['artists'][0]['id']
     
-    # ... get genre, too
-    
-    return spotify_id
+    return song_id, artist_id
 
 
 def retrieve_audio_features(spotify_id):

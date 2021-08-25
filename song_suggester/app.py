@@ -1,7 +1,7 @@
 '''Song_Suggester app logic'''
 import os
 from flask import Flask, render_template, request
-from .models import DB, Song
+from .models import *
 from .spotify_client import *
 
 
@@ -29,10 +29,10 @@ def create_app():
         if request.method == "POST":
             song_name = request.form["song_name"]
             artist_name = request.form["artist_name"]
-            spotify_id = retrieve_spotify_id('superstition','stevie wonder')
-            audio_features = retrieve_audio_features(spotify_id)
+            song_id, artist_id = retrieve_spotify_ids('superstition','stevie wonder')
+            audio_features = retrieve_audio_features(song_id)
             genre_list = retrieve_genres(artist_name)
-            recommend_list = spotipy_recs(spotify_id, limit=3) # nested list
+            recommend_list = spotipy_recs(song_id, limit=3) # nested list
 
         # ...
 

@@ -23,6 +23,8 @@ spotipy = "*"
 scikit-learn = "*"
 nbconvert = "*"
 scipy = "*"
+pytest = "*"
+autopep8 = "*"
 
 [dev-packages]
 
