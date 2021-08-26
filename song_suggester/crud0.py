@@ -8,27 +8,24 @@ import pandas as pd
 from song_suggester.models import *           # in flask shell...
 from song_suggester.spotify_client import *   # ...import like this
 
-#-------------------------------------------------------
-# POPULATE THESE TABLES: ARTIST, SONG, AUDIO_FEATURES, RECOMMENDATION
-kg = pd.read_csv('spotify_tracks_metadata.csv', index_col=0); 
+#----------------------------------------------------------------------------
+# We found our dataset at <https://www.kaggle.com/luckey01/test-data-set>
+
+df = pd.read_csv('spotify_tracks_metadata.csv', index_col=0); 
+
+#----------------------------------------------------------------------------
 
 DB.drop_all(); 
 DB.create_all(); 
 
-song_name = kg['song_name'][0]; 
-artist_name = kg['artist_name'][0]; 
 
-song_id, artist_id = retrieve_spotify_ids(
-    song_name=song_name, artist_name=artist_name); 
 
 s0 = Song(
     id = song_id, 
-    song_name = song_name, 
-    artist_name = artist_name,
-    artist_id = artist_id); 
 
-f0 = AudioFeatures(
-    song_id = song_id,
+    song_name = kg['song_name'][0]; 
+    artist_name = kg['artist_name'][0]; 
+
     danceability = float(kg['danceability'][0]),
     energy = float(kg['energy'][0]), 
     key = int(kg['key'][0]),

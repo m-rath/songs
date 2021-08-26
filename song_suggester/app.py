@@ -1,9 +1,9 @@
 '''Song_Suggester app logic'''
 import os
 from flask import Flask, render_template, request
-from .models import *
+from sqlalchemy import func, distinct
+from .model import df, DB, Song, DB_load
 from .spotify_client import *
-from .recommender import *
 
 
 def create_app():
@@ -17,32 +17,25 @@ def create_app():
     # initialize database
     DB.init_app(app)
 
-    # create table(s)
+    # create and insert into Song table
     with app.app_context():
         DB.create_all()
+        # load_DB(); 
 
-    # ROOT ROUTE
+
     @app.route('/', methods=["GET", "POST"])
     def root():     
         # ...
 
         # When visitor types song and artist then hits a button...
         if request.method == "POST":
-            song_name = request.form["song_name"]
-            artist_name = request.form["artist_name"]
-            song_id, artist_id = retrieve_spotify_ids('superstition','stevie wonder')
-            audio_features = retrieve_audio_features(song_id)
-            genre_list = retrieve_genres(artist_name)
-            recommend_list = spotipy_recs(song_id, limit=3) # nested list
-
+            song_seed = request.form["song_name"]
+            # artist_name = request.form["artist_name"]
+            
+            recomm = Song.query.limit(2).all() # put model output here
         # ...
-
         return render_template(
-            'predict.html', title = 'home', songs = Song.query.limit(10).all())
-
-
+            'predict.html', title='home', song_seed=song_seed, recomm=recomm)
 
     #...
-
-
     return app
