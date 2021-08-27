@@ -28,7 +28,6 @@ class Song(DB.Model):
 
     def __repr__(self):
         return "<{}>".format(self.song_name)
-<<<<<<< Updated upstream
 
 #----------------------------------------------------------------------------
 # Define a function to Create and Insert, i.e. load the DB
@@ -72,5 +71,5 @@ filename = '/home/greg/DS/songs/song_suggester/model_knn.pkl'
 
 with open(filename, 'rb') as f:
     model_knn = pickle.load(f)
-=======
->>>>>>> Stashed changes
+
+
