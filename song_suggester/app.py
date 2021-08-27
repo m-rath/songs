@@ -1,9 +1,9 @@
 '''Song_Suggester app logic'''
 import os
 from flask import Flask, render_template, request
-
-from .app_funcs import *
+from .model import DB, Song
 from .spotify_client import *
+from .app_funcs import *
 
 
 def create_app():
@@ -15,9 +15,13 @@ def create_app():
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
     # initialize database
-    from .model import DB
     DB.init_app(app)
 
+    # create table(s)
+    with app.app_context():
+        DB.create_all()
+
+    # ROOT ROUTE
     @app.route('/', methods=["GET", "POST"])
     def root():     
         # ...
@@ -26,14 +30,13 @@ def create_app():
         if request.method == "POST":
             song_name = request.form["song_name"]
             artist_name = request.form["artist_name"]
-            spotify_ids = suggest(song_name, artist_name)
-                        = DB.session.query(Song).filter()
-
-
+            spotify_ids = suggest_ids(song_name, artist_name)
+            # = DB.session.query(Song).filter(Song.id in )
 
         # ...
-        return render_template(
-            'predict.html', title='home', song_name, artist_name, suggest=suggest)
 
-    #...
+        return render_template(
+            'predict.html', title='home', song_name=song_name, artist_name=artist_name, suggest=suggest)
+
+
     return app

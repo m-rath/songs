@@ -9,12 +9,12 @@ from sklearn.cluster import KMeans
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler
 
-from model import *
+from song_suggester.model import *
 
 #---------------------------------------------------------------
 
 # csv_file too big for github repository
-csv_file = '../spotify_tracks_metadata.csv'
+csv_file = 'spotify_tracks_metadata.csv'
 
 df = pd.read_csv(csv_file, index_col = 0)
 df.drop_duplicates(subset = 'spotify_id', ignore_index=True, inplace=True)

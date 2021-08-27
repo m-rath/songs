@@ -6,7 +6,7 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.cluster import KMeans
 from scipy.spatial.distance import cityblock
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy.dialects.postgresql import *
+# from sqlalchemy.dialects.postgresql import *
 
 
 DB = SQLAlchemy()
@@ -58,3 +58,12 @@ def DB_load(batch_size=1000):
             time_signature = int(df['time_signature'][i])) 
         DB.session.add(song_row)
     DB.session.commit()
+
+df = pd.read_csv('spotify_tracks_metadata.csv', index_col = 0)
+df.drop_duplicates(subset = 'spotify_id', ignore_index=True, inplace=True)
+
+# DB.drop_all()
+# DB.create_all()
+# DB_load(batch_size=439889)
+# DB.session.commit()
+# DB.session.close()
