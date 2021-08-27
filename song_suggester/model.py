@@ -31,10 +31,10 @@ class Song(DB.Model):
 
 
 
-#loading in pickled KNN model
-filename = 'model_knn.pkl'
+# #loading in pickled KNN model
+# filename = 'model_knn.pkl'
 
-with open(filename, 'rb') as f:
-    model_knn = pickle.load(f)
+# with open(filename, 'rb') as f:
+#     model_knn = pickle.load(f)
 
 

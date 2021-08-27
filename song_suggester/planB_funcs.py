@@ -11,7 +11,8 @@ from .spotify_client import *
 
 
 # unpickle a trained kmeans algorithm and cluster-distances 
-kmeans_pipe = pickle.load(open('kmeans_pipe.sav', 'rb'))
+filename = 'kmeans_pipe.sav'
+kmeans_pipe = pickle.load(open(filename, 'rb'))
 df_index = pickle.load(open('df_index.sav', 'rb'))
 song_space_locs = pickle.load(open('song_space_locs.sav', 'rb'))
 
