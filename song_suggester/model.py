@@ -32,7 +32,7 @@ class Song(DB.Model):
 
 
 #loading in pickled KNN model
-filename = '/home/greg/DS/songs/song_suggester/model_knn.pkl'
+filename = 'model_knn.pkl'
 
 with open(filename, 'rb') as f:
     model_knn = pickle.load(f)
