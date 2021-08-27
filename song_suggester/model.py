@@ -72,7 +72,7 @@ def DB_load(batch_size=1000):
 # DB.session.commit()
 
 #loading in pickled KNN model
-filename = '/home/greg/DS/songs/song_suggester/model_knn.pkl'
+filename = 'model_knn.pkl'
 
 with open(filename, 'rb') as f:
     model_knn = pickle.load(f)
