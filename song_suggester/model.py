@@ -1,12 +1,4 @@
-import pickle
-import numpy as np
-import pandas as pd
-from sklearn.pipeline import Pipeline
-from sklearn.preprocessing import StandardScaler
-from sklearn.cluster import KMeans
-from scipy.spatial.distance import cityblock
 from flask_sqlalchemy import SQLAlchemy
-# from sqlalchemy.dialects.postgresql import *
 
 
 DB = SQLAlchemy()
@@ -37,33 +29,12 @@ class Song(DB.Model):
         return "<{}>".format(self.song_name)
 
 
-def DB_load(batch_size=1000):
-    for i in range(batch_size):
-        song_row = Song(
-            id = df['spotify_id'][i],
-            song_name = df['song_name'][i], 
-            artist_name = df['artist_name'][i], 
-            danceability = float(df['danceability'][i]),
-            energy = float(df['energy'][i]), 
-            key = int(df['key'][i]),
-            loudness = float(df['loudness'][i]),
-            mode = int(df['mode'][i]),
-            speechiness = float(df['speechiness'][i]),
-            acousticness = float(df['acousticness'][i]),
-            instrumentalness = float(df['instrumentalness'][i]),
-            liveness = float(df['liveness'][i]),
-            valence = float(df['valence'][i]),
-            tempo = float(df['tempo'][i]),
-            duration_ms = int(df['duration_ms'][i]),
-            time_signature = int(df['time_signature'][i])) 
-        DB.session.add(song_row)
-    DB.session.commit()
 
-df = pd.read_csv('spotify_tracks_metadata.csv', index_col = 0)
-df.drop_duplicates(subset = 'spotify_id', ignore_index=True, inplace=True)
 
-# DB.drop_all()
-# DB.create_all()
-# DB_load(batch_size=439889)
-# DB.session.commit()
-# DB.session.close()
+#loading in pickled KNN model
+filename = '/home/greg/DS/songs/song_suggester/model_knn.pkl'
+
+with open(filename, 'rb') as f:
+    model_knn = pickle.load(f)
+
+

@@ -1,4 +1,4 @@
-"""objects and functions supporting html actions and routes"""
+"""some objects and functions supporting html actions and routes"""
 import pickle
 import numpy as np
 import pandas as pd
@@ -10,10 +10,10 @@ from .spotify_client import *
 
 
 
-# unpickle the trained cluster algorithm and results 
-# kmeans_pipe = pickle.load(open('kmeans_pipe.sav', 'rb'))
-# df_index = pickle.load(open('df_index.sav', 'rb'))
-# song_space_locs = pickle.load(open('song_space_locs.sav', 'rb'))
+# unpickle a trained kmeans algorithm and cluster-distances 
+kmeans_pipe = pickle.load(open('kmeans_pipe.sav', 'rb'))
+df_index = pickle.load(open('df_index.sav', 'rb'))
+song_space_locs = pickle.load(open('song_space_locs.sav', 'rb'))
 
 
 def suggest_ids(song_name, artist_name):
