@@ -1,3 +1,5 @@
+"""To avoid errors inserting duplicates into unique columns, see <https://docs.sqlalchemy.org/en/14/core/selectable.html#sqlalchemy.sql.expression.exists>"""
+
 
 import re
 from time import sleep
@@ -75,18 +77,16 @@ DB.session.commit();
 
 #-----------------------------------------------------------
 # POPULATE THE GENRE TABLE COMPLETELY
+genre_set = SPOTIPY_API.recommendation_genre_seeds()['genres']
+for genre in genre_set:
+    g = Genre(genre=genre); 
+    DB.session.add(g); 
+DB.session.commit(); 
 
-def load_DB_part2():
-    genre_set = SPOTIPY_API.recommendation_genre_seeds()['genres']
-    for genre in genre_set:
-        g = Genre(genre=genre); 
-        DB.session.add(g); 
-    DB.session.commit(); 
-
-    # FOR EACH ARTIST, RETRIEVE AND APPEND GENRES; 
-    for A in Artist.query.all():
-        artist_genre_zone = retrieve_genres(artist_name = A.artist_name); 
-        for Z in artist_genre_zone:
-            A.genres.append(Genre.query.filter_by(genre=Z).one()); 
-            DB.session.add(A); 
-    DB.session.commit()
+# FOR EACH ARTIST, RETRIEVE AND APPEND GENRES; 
+for A in Artist.query.all():
+    artist_genre_zone = retrieve_genres(artist_name = A.artist_name); 
+    for Z in artist_genre_zone:
+        A.genres.append(Genre.query.filter_by(genre=Z).one()); 
+        DB.session.add(A); 
+DB.session.commit()
