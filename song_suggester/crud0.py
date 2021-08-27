@@ -11,7 +11,7 @@ from song_suggester.spotify_client import *   # ...import like this
 #----------------------------------------------------------------------------
 # We found our dataset at <https://www.kaggle.com/luckey01/test-data-set>
 
-df = pd.read_csv('spotify_tracks_metadata.csv', index_col=0); 
+#kg = pd.read_csv('spotify_tracks_metadata.csv', index_col=0); 
 
 #----------------------------------------------------------------------------
 

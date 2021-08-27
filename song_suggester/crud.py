@@ -14,11 +14,11 @@ from .spotify_client import *
 
 #-------------------------------------------------------
 # POPULATE THESE TABLES: ARTIST, SONG, AUDIO_FEATURES, RECOMMENDATION
-kg = pd.read_csv('spotify_tracks_metadata.csv', index_col=0); 
+#kg = pd.read_csv('spotify_tracks_metadata.csv', index_col=0); 
 
 DB.drop_all(); 
 DB.create_all(); 
-
+"""
 def load_DB_part1():
     # The kaggle csv file is too big for rate limits
     # for i in range(len(kg['spotify_id'])):
@@ -70,7 +70,7 @@ def load_DB_part1():
                 song_id = song_id
             ); 
             DB.session.add(r0); # Recommendation
-
+"""
 DB.session.commit(); 
 
 

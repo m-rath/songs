@@ -102,10 +102,10 @@ class SpotifyAPI(object):
         headers = self.get_resource_header()
         endpoint = 'https://api.spotify.com/v1/search'
         lookup_url = f'{endpoint}?{query_params}'
-        r = requests.get(lookup_url, headers=headers)
-        if r.status_code not in range(200, 299):
+        resp = requests.get(lookup_url, headers=headers)
+        if resp.status_code not in range(200, 299):
             return {}
-        return r.json()
+        return resp.json()
     
     def search(self, query=None, operator=None, operator_query=None,search_type='artist'):
         if query == None:
@@ -133,6 +133,7 @@ def retrieve_spotify_ids(song_name, artist_name):
     """Example: retrieve_spotify_id('superstition','stevie wonder')
     returns '4N0TP4Rmj6QQezWV88ARNJ'
     """
+    token = SPOTIFY_API.get_access_token()
     song = SPOTIFY_API.search(
         {'track':song_name, 'artist':artist_name}, search_type='track')
     song_id = song['tracks']['items'][0]['id']

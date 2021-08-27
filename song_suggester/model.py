@@ -1,13 +1,8 @@
+# TODO: THIS IS ZOMBIE CODE WE NEED TO DELETE THIS
 from flask_sqlalchemy import SQLAlchemy
 import pandas as pd
 
-#----------------------------------------------------------------------------
-# We found our dataset at <https://www.kaggle.com/luckey01/test-data-set>
 
-df = pd.read_csv('spotify_tracks_metadata.csv', index_col = 0)
-df.drop_duplicates(subset = 'spotify_id', ignore_index = True, inplace = True)
-
-#----------------------------------------------------------------------------
 # Our postgres table, 'song', inherits from flask_sqlalchemy starter DB.Model
 
 DB = SQLAlchemy()
@@ -33,6 +28,7 @@ class Song(DB.Model):
 
     def __repr__(self):
         return "<{}>".format(self.song_name)
+<<<<<<< Updated upstream
 
 #----------------------------------------------------------------------------
 # Define a function to Create and Insert, i.e. load the DB
@@ -76,3 +72,5 @@ filename = '/home/greg/DS/songs/song_suggester/model_knn.pkl'
 
 with open(filename, 'rb') as f:
     model_knn = pickle.load(f)
+=======
+>>>>>>> Stashed changes
