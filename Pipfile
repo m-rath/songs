@@ -25,6 +25,7 @@ nbconvert = "*"
 scipy = "*"
 pytest = "*"
 autopep8 = "*"
+psycopg2-binary = "*"
 
 [dev-packages]
 
