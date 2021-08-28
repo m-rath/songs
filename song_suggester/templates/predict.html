@@ -85,7 +85,16 @@
 								</ul>
 							</form>
 							<div>
-								{{recommended}}
+								<table>
+									{% for hit in top_hits %}
+									<tr>
+										<ol>{{ hit.song_name }}, by {{ hit.artist_name }}</ol>
+										<td>
+
+										</td>
+									</tr>
+									{% endfor %}
+								</table>							
 							</div>
 						</div>
 					</section>

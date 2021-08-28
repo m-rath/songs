@@ -170,7 +170,10 @@ def retrieve_genres(artist_name):
     """Example: retrieve_genre('stevie wonder')
     returns ['funk', 'indie r&b', 'motown', 'quiet storm', 'soul']"""
     artist = SPOTIFY_API.search({'artist':artist_name}, search_type='artist')
-    genre_list = artist['artists']['items'][0]['genres']
+    if (type(artist['artists']['items']) == list) & (len(artist['artists']['items'])>0):
+        genre_list = artist['artists']['items'][0]['genres']
+    else:
+        genre_list = []
     return genre_list
 
 def spotipy_recs(spotify_id, limit=20):
