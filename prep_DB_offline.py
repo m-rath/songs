@@ -39,6 +39,6 @@ pickle.dump(song_space_locs, open('song_space_locs.sav', 'wb'))
 # when batch_size = len(df), 439889 songs load into postgresql DB in 4 minutes
 DB.drop_all()
 DB.create_all()
-DB_load(batch_size=439889)
+DB_load(df, batch_size=439889)
 DB.session.commit()
 DB.session.close()

@@ -1,7 +1,6 @@
 '''Song_Suggester app logic'''
 import os
 from flask import Flask, render_template, request
-# from .model import DB, Song #model_knn
 from .spotify_client import *
 from .planB_funcs import *
 
