@@ -1,7 +1,10 @@
 """
-FROM FLASK SHELL, POPULATE DATABASE AND PICKLE KMEANS MODEL AND TRANSFORMED CLUSTER-DISTANCE SONG COORDINATES (SEE SKLEARN DOCS FOR DETAILS)
+FROM FLASK SHELL, 
+  1) POPULATE DATABASE AND 
+  2) PICKLE KMEANS MODEL AND TRANSFORMED CLUSTER-DISTANCE SONG COORDINATES
 
-SPOTIFY DATASET FROM <https://www.kaggle.com/luckey01/test-data-set>"""
+SPOTIFY DATASET: <https://www.kaggle.com/luckey01/test-data-set>
+"""
 
 import pickle
 import pandas as pd
@@ -13,7 +16,6 @@ from song_suggester.model import *
 
 #---------------------------------------------------------------
 
-# csv_file too big for github repository
 csv_file = 'spotify_tracks_metadata.csv'
 
 df = pd.read_csv(csv_file, index_col = 0)
@@ -21,7 +23,21 @@ df.drop_duplicates(subset = 'spotify_id', ignore_index=True, inplace=True)
 df_index = df['spotify_id']
 
 # these columns align with audio features from spotify's API, conveniently 
-feats = ['danceability','energy','key','loudness','mode','speechiness','acousticness','instrumentalness','liveness','valence','tempo','duration_ms','time_signature']
+feats = [
+    'danceability',
+    'energy',
+    'key',
+    'loudness',
+    'mode',
+    'speechiness',
+    'acousticness',
+    'instrumentalness',
+    'liveness',
+    'valence',
+    'tempo',
+    'duration_ms',
+    'time_signature'
+]
 df = df[feats]
 
 # fit the model, get locations in song-feature-space, relative to clusters
